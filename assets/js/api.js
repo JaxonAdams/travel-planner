@@ -9,27 +9,32 @@ var startDate = "2022-02-10" // Date will be grabbed from form
 var airportCode = "KSLC" // Code will be grabbed from form
 
 // Declare required URLs for fetch request
-var aviationStackUrl = "https://api.aviationstack.com/v1/flights?access_key=febff7df015fc5038aff1dca8627952a&flight_date=" + startDate + "&dep_icao=" + airportCode;
+var aviationStackUrl = "http://api.aviationstack.com/v1/flights?access_key=febff7df015fc5038aff1dca8627952a&dep_icao=" + airportCode + "&limit=10";
 
 // Lat and Lon provided by flight data requested
 var weatherUrl = "";
 
 // Fetch Requests
-var getFlights = function(url) {
-    fetch(url).then(
-        response => response.json()
-    ).then(
-        data => console.log(data)
-    );
-}
+// var getFlights = function(url) {
+//     fetch(url).then(
+//         response => response.json()
+//     ).then(
+//         function(data) {
+//             for(let i = 0; i < data.data.length; i++) {
+//                 console.log(data.data[i].arrival.airport);
+//                 console.log(data.data[i].flight.number);
+//             }
+//         }
+//     );
+// }
 
 var getArrivalLatAndLon = function(data, url) {
     var arrivalAirport = data.arrival.icao;
 
-    airportUrl = "https://api.aviationstack.com/v1/airports?access_key=febff7df015fc5038aff1dca8627952a"
+    airportUrl = "http://api.aviationstack.com/v1/airports?access_key=febff7df015fc5038aff1dca8627952a"
 
     fetch(airportUrl).then(
-        response => response.json()
+        response => response.text()
     ).then(
         function(data) {
             var latAndLon = {
@@ -50,4 +55,4 @@ var getWeather = function(url) {
     )
 }
 
-getFlights(aviationStackUrl);
+// getFlights(aviationStackUrl);
