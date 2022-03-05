@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Travel-Planner</title>
+</head>
+
+<body>
+
+    <header class="title container is-fluid">
+        <div class="notification is-primary is-fullhd title">
+            <h2 class="has-text-black has-text-centered">Travel-planner</h2>
+        </div>
+    </header>
+    <!--drop down column-->
+    <section class="flights columns py-4 box">
+        <div class="select is-primary is-rounded is-medium has-icons-left">
+            <label for="destination-dropdown column is-5">Pick a destination</label>
+            <select name="destination-picker" id="destination-dropdown">
+                <option value="destination-1">placeholder for flight</option>
+                <option value="destination-2">placeholder for flight</option>
+                <option value="destination-3">placeholder for flight</option>
+                <option value="destination-4">placeholder for flight</option>
+                <option value="destination-5">placeholder for flight</option>
+                <option value="destination-6">placeholder for flight</option>
+                <option value="destination-7">placeholder for flight</option>
+                <option value="destination-8">placeholder for flight</option>
+                <option value="destination-9">placeholder for flight</option>
+                <option value="destination-10">placeholder for flight</option>
+            </select>
+        </div>
+    </section>
+
+    <!--text form-->
+    <section class="form container columns box">
+        <form id="text-form-id">
+            <div class="column">
+                <label for="text-form">Type a destination</label>
+                <input type="text" class="input is-primary is-medium is-focused" placeholder="destination"
+                    id="text-form">
+                <button class="button is-primary" type="submit" id="text-form-id">Submit</button>
+        </form>
+        </div>
+    </section>
+
+    <!--right side output depending on selection above-->
+    <section class="columns">
+        <div class="column is-primary">
+            information on weather and flight displayed here 
+            
+        </div>
+    </section>
+
+
+</body>
+
+</html>
