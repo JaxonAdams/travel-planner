@@ -9,54 +9,49 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Travel-Planner</title>
 </head>
-
+  
 <body>
 
-    <header class="title container is-fluid">
-        <div class="notification is-primary is-fullhd title">
-            <h2 class="has-text-black has-text-centered">Travel-planner</h2>
-        </div>
+    <header class="columns">
+            <div class="column is-full has-background-primary my-3 mx-1">
+            <h2 class="has-text-black has-text-centered is-size-2">Travel-planner</h2>
+
+        <section class="columns has-background-primary my-2 mx-2">
+            <form class="column is-one-third" id="text-form-id">
+                <div>
+                    <label for="text-form">Choose a destination</label>
+                    <input type="text" class="input is-primary is-medium is-focused" placeholder="destination"
+                        id="text-form">
+                    <button class="button is-light" type="submit" id="text-form-submit">Submit</button>
+            
+            </form>
+        </section>
+
     </header>
-    <!--drop down column-->
-    <section class="flights columns py-4 box">
-        <div class="select is-primary is-rounded is-medium has-icons-left">
-            <label for="destination-dropdown column is-5">Pick a destination</label>
-            <select name="destination-picker" id="destination-dropdown">
-                <option value="destination-1">placeholder for flight</option>
-                <option value="destination-2">placeholder for flight</option>
-                <option value="destination-3">placeholder for flight</option>
-                <option value="destination-4">placeholder for flight</option>
-                <option value="destination-5">placeholder for flight</option>
-                <option value="destination-6">placeholder for flight</option>
-                <option value="destination-7">placeholder for flight</option>
-                <option value="destination-8">placeholder for flight</option>
-                <option value="destination-9">placeholder for flight</option>
-                <option value="destination-10">placeholder for flight</option>
-            </select>
-        </div>
-    </section>
 
     <!--text form-->
-    <section class="form container columns box">
-        <form id="text-form-id">
-            <div class="column">
-                <label for="text-form">Type a destination</label>
-                <input type="text" class="input is-primary is-medium is-focused" placeholder="destination"
-                    id="text-form">
-                <button class="button is-primary" type="submit" id="text-form-id">Submit</button>
-        </form>
-        </div>
-    </section>
+
+            <section class="section has-background-light" id="flight-list">
+                <h3>List of flights option above flights displayed here</h3>
+                <ul class="flights" id="available-flights">
+
+                </ul>
+            </section>
+    
 
     <!--right side output depending on selection above-->
     <section class="columns">
-        <div class="column is-primary">
-            information on weather and flight displayed here 
-            
+        <div class="column">
+            information on weather depending on flight displayed here 
+
         </div>
     </section>
 
+    <script src="./assets/js/script.js">
 
+    </script>
 </body>
+
+
 
 </html>
