@@ -1,6 +1,7 @@
 var flightListEl = document.querySelector("#text-form-id");
 var buttonEl = document.getElementById("text-form-submit");
 var unorderList = document.getElementById("available-flights");
+var weatherDisplay = document.getElementById("weather-display");
 
 console.log(flightListEl);
 
@@ -60,35 +61,43 @@ var mockDataWeather = {
     }
 }
 
-function getAPIData(userInput){
+function getAPIData(userInput) {
 
 
     
 }
 
-function displayResults(result){
-    console.log(result);
-    
+function displayResults(result) {
+
     for(let i = 0; i < result.data.length; i++){
         var listItem = document.createElement("li");
         listItem.classList.add("flight-info");
         listItem.textContent = "Flight to " + result.data[i].arrival.airport + " :  " + result.data[i].flight.number + "  :  " + "Flight time goes here";
-        console.log(result.data);
 
         unorderList.appendChild(listItem);
     }
 }
-unorderList.addEventListener("click",listItem);
 
-function listItem(event){
-    console.log(event.target);
+function displayWeather(weatherData, input) {
+    var weatherDataItem = document.createElement("h2");
+    weatherDataItem.classList.add("is-size-2");
+
+    if (!input) {
+        weatherDataItem.textContent = "";
+    } else {
+        weatherDataItem.textContent = "It is currently " + weatherData.main.temp + "° F. at the requested location."
+    }
+
+    weatherDisplay.appendChild(weatherDataItem);
 }
 
 buttonEl.addEventListener("click",function(event){
     event.preventDefault();
-    var userInput = document.getElementById("text-form").value;
-    var result = getAPIData(userInput);
+    var airportInput = document.getElementById("text-form-airport").value;
+    var zipInput = document.getElementById("text-form-zip").value;
+    var result = getAPIData(airportInput);
     displayResults(mockDataFlights);
+    displayWeather(mockDataWeather, zipInput);
 
 
 });

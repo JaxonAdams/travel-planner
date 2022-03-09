@@ -20,9 +20,9 @@
                 
                 <label for="text-form">Enter your airport's ICAO code and/or your destination's ZIP code below:</label>
                 <input type="text" class="input is-primary is-medium is-focused" placeholder="Airport ICAO"
-                    id="text-form">
+                    id="text-form-airport">
                 <input type="text" class="input is-primary is-medium is-focused" placeholder="Destination ZIP"
-                    id="text-form">
+                    id="text-form-zip">
                 <button class="button is-light" type="submit" id="text-form-submit">Submit</button>
             
             </form>
@@ -35,6 +35,7 @@
     <section class="section has-background-light" id="flight-list">
         <h2 class="has-text-black has-text-centered is-size-2">Available flights will be displayed below:</h2>
         <ul class="flights" id="available-flights"></ul>
+        <div class="has-text-black has-background-light" id="weather-display"></div>
     </section>
 
     <section class="section has-background-light" id="weather-info"></section>
