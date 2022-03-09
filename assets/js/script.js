@@ -83,6 +83,55 @@ function displayResults(result, airportInput) {
     }
 }
 
+// Get lat and lon
+
+function getLatAndLon(location) {
+    var geoUrl = "https://api.openweathermap.org/geo/1.0/zip?zip=" + location + "&appid=67c682bdeb2484022f2478f1c184a2f6";
+
+    if (location) {
+        fetch(geoUrl).then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                    console.log(data);
+
+                    var lat = getLat(data);
+                    var lon = getLon(data);
+
+                    getWeatherApi(lat, lon, location);
+
+                });
+            }
+        })
+        .catch(function(error) {
+            console.log("Unable to connect to our weather API.");
+        });
+    }
+}
+
+function getLat(data) {
+    return data.lat;
+}
+
+function getLon(data) {
+    return data.lon;
+}
+
+function getWeatherApi(lat, lon, input) {
+    console.log("Getting weather at lat: " + lat + " and lon: " + lon);
+
+    var weatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly,daily,alerts&appid=67c682bdeb2484022f2478f1c184a2f6";
+
+    fetch(weatherUrl).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                var temp = data.current.temp;
+
+                displayWeather(temp, input);
+            })
+        }
+    })
+}
+
 function displayWeather(weatherData, input) {
     var weatherDataItem = document.createElement("h2");
     weatherDataItem.classList.add("is-size-2", "has-text-centered");
@@ -90,7 +139,7 @@ function displayWeather(weatherData, input) {
     if (!input) {
         weatherDataItem.textContent = "";
     } else {
-        weatherDataItem.textContent = "It is currently " + weatherData.main.temp + "° F. at the requested location."
+        weatherDataItem.textContent = "It is currently " + weatherData + "° F. at the requested location."
     }
 
     weatherDisplay.appendChild(weatherDataItem);
@@ -102,7 +151,7 @@ buttonEl.addEventListener("click",function(event){
     var zipInput = document.getElementById("text-form-zip").value;
     var result = getAPIData(airportInput);
     displayResults(mockDataFlights, airportInput);
-    displayWeather(mockDataWeather, zipInput);
+    getLatAndLon(zipInput);
 
 
 });
@@ -188,14 +237,6 @@ var getArrivalLatAndLonFake = function(data, zip) {
     console.log(getLatAndLonFake(data));
 
     return getLatAndLonFake(data);
-}
-
-var getWeather = function(url) {
-    fetch(url).then(
-        response => response.json()
-    ).then(
-        data => console.log(data)
-    )
 }
 
 var getWeatherFake = function(data) {
