@@ -6,22 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Travel-Planner</title>
+    <title>Travel Planner</title>
 </head>
   
 <body>
 
     <header class="columns">
             <div class="column is-full has-background-primary my-3 mx-1">
-            <h2 class="has-text-black has-text-centered is-size-2">Travel-planner</h2>
+            <h1 class="has-text-black has-text-centered is-size-2">Travel Planner</h1>
 
         <section class="columns has-background-primary my-2 mx-2">
             <form class="column is-one-third" id="text-form-id">
-                <div>
-                    <label for="text-form">Choose a destination</label>
-                    <input type="text" class="input is-primary is-medium is-focused" placeholder="destination"
-                        id="text-form">
-                    <button class="button is-light" type="submit" id="text-form-submit">Submit</button>
+                
+                <label for="text-form">Enter your airport's ICAO code and your destination's ZIP code below:</label>
+                <input type="text" class="input is-primary is-medium is-focused" placeholder="Airport ICAO"
+                    id="text-form">
+                <input type="text" class="input is-primary is-medium is-focused" placeholder="Destination ZIP"
+                    id="text-form">
+                <button class="button is-light" type="submit" id="text-form-submit">Submit</button>
             
             </form>
         </section>
@@ -30,27 +32,14 @@
 
     <!--text form-->
 
-            <section class="section has-background-light" id="flight-list">
-                <h3>List of flights option above flights displayed here</h3>
-                <ul class="flights" id="available-flights">
-
-                </ul>
-            </section>
-    
-
-    <!--right side output depending on selection above-->
-    <section class="columns">
-        <div class="column">
-            information on weather depending on flight displayed here 
-
-        </div>
+    <section class="section has-background-light" id="flight-list">
+        <h2>Available flights will be displayed below:</h2>
+        <ul class="flights" id="available-flights"></ul>
     </section>
 
-    <script src="./assets/js/script.js">
+    <section class="section has-background-light" id="weather-info"></section>
 
-    </script>
+    <script src="./assets/js/script.js"></script>
 </body>
-
-
 
 </html>
