@@ -2,51 +2,78 @@ var flightListEl = document.querySelector("#text-form-id");
 var buttonEl = document.getElementById("text-form-submit");
 var unorderList = document.getElementById("available-flights");
 
-buttonEl.addEventListener("click",function(event){
-    event.preventDefault();
-    var userInput = document.getElementById("text-form").value;
-    var result = getAPIData(userInput);
-    displayResults(result);
-
-
-})
-
 console.log(flightListEl);
 
 //nothing is typed in text box 
 
-
-
-function getAPIData(userInput){
-    var results = [
+// Mock Data for Fake API Calls
+var mockDataFlights = {
+    data: [
         {
-            name : "flight1",
-            depart: "12:03",
-            price: "180",
-
+            arrival: {
+                airport: 'Los Angeles',
+                icao: 'KLAX'
+            },
+            flight: {
+                number: '12345',
+            }
         },
         {
-            name : "flight2",
-            depart: "11:03",
-            price: "130",
-
+            arrival: {
+                airport: 'Las Vegas',
+                icao: 'KLVS'
+            },
+            flight: {
+                number: '54321',
+            }
         },
         {
-            name : "flight3",
-            depart: "10:03",
-            price: "150",
-
+            arrival: {
+                airport: 'Frankfurt',
+                icao: 'EDFH'
+            },
+            flight: {
+                number: '12543',
+            }
+        },
+        {
+            arrival: {
+                airport: 'London',
+                icao: 'EGGW'
+            },
+            flight: {
+                number: '54123',
+            }
         },
     ]
-    return results
+};
+
+// Mock Data for Fake API Calls
+var mockDataAirport = {
+    lat: 34.0901,
+    lon: -118.4065
+}
+
+var mockDataWeather = {
+    main: {
+        temp: 80
+    }
+}
+
+function getAPIData(userInput){
+
+
+    
 }
 
 function displayResults(result){
+    console.log(result);
     
-    for(let i = 0; i < result.length; i++){
+    for(let i = 0; i < result.data.length; i++){
         var listItem = document.createElement("li");
-        listItem.textContent = result[i].name + " :  " + result[i].depart +"  :  "+ result[i].price;
-        
+        listItem.classList.add("flight-info");
+        listItem.textContent = "Flight to " + result.data[i].arrival.airport + " :  " + result.data[i].flight.number + "  :  " + "Flight time goes here";
+        console.log(result.data);
 
         unorderList.appendChild(listItem);
     }
@@ -57,12 +84,21 @@ function listItem(event){
     console.log(event.target);
 }
 
+buttonEl.addEventListener("click",function(event){
+    event.preventDefault();
+    var userInput = document.getElementById("text-form").value;
+    var result = getAPIData(userInput);
+    displayResults(mockDataFlights);
+
+
+});
+
 
 
 // This is a file we are using to test our APIs.
 
-// Set the day and time they would like to leave
-var startDate = "2022-02-10" // Date will be grabbed from form
+// Get the current day
+var startDate = moment().format("YYYY-MM-DD");
 
 // Set Airport
 var airportCode = "KSLC" // Code will be grabbed from form
@@ -123,7 +159,7 @@ var getArrivalLatAndLon = function(data, zip) {
 
 }
 
-// MOck api call for testing
+// Mock api call for testing
 var getArrivalLatAndLonFake = function(data, zip) {
 
     var getLatAndLonFake = data => {
@@ -161,68 +197,3 @@ var getWeatherFake = function(data) {
 
 
 // getArrivalLatAndLon();
-
-
-
-// Mock Data for Fake API Calls
-var mockDataFlights = {
-    data: [
-        {
-            arrival: {
-                airport: 'Los Angeles',
-                icao: 'KLAX'
-            },
-            flight: {
-                number: '12345',
-            }
-        },
-        {
-            arrival: {
-                airport: 'Las Vegas',
-                icao: 'KLVS'
-            },
-            flight: {
-                number: '54321',
-            }
-        },
-        {
-            arrival: {
-                airport: 'Frankfurt',
-                icao: 'EDFH'
-            },
-            flight: {
-                number: '12543',
-            }
-        },
-        {
-            arrival: {
-                airport: 'London',
-                icao: 'EGGW'
-            },
-            flight: {
-                number: '54123',
-            }
-        },
-    ]
-}
-
-// Mock Data for Fake API Calls
-var mockDataAirport = {
-    lat: 34.0901,
-    lon: -118.4065
-}
-
-var mockDataWeather = {
-    main: {
-        temp: 80
-    }
-}
-
-// Mock API call
-getFlightsFake(mockDataFlights);
-
-// Mock API call
-getArrivalLatAndLonFake(mockDataAirport, 84005);
-
-// Mock API call
-getWeatherFake(mockDataWeather);
