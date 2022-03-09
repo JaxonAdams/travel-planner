@@ -49,22 +49,20 @@ var mockDataFlights = {
     ]
 };
 
-// Mock Data for Fake API Calls
-var mockDataAirport = {
-    lat: 34.0901,
-    lon: -118.4065
-}
+function getFlightApi(icao) {
+    var flightUrl = "http://api.aviationstack.com/v1/flights?access_key=febff7df015fc5038aff1dca8627952a&dep_icao=" + icao + "&limit=10";
 
-var mockDataWeather = {
-    main: {
-        temp: 80
+    if (icao) {
+        fetch(flightUrl).then(function(response) {
+            if(response.ok) {
+                response.json().then(function(data) {
+                    console.log(data);
+
+                    displayResults(data, icao);
+                })
+            }
+        })
     }
-}
-
-function getAPIData(userInput) {
-
-
-    
 }
 
 function displayResults(result, airportInput) {
@@ -76,7 +74,7 @@ function displayResults(result, airportInput) {
         if (!airportInput) {
             listItem.textContent = "";
         } else {
-            listItem.textContent = "Flight to " + result.data[i].arrival.airport + " :  " + result.data[i].flight.number + "  :  " + "Flight time goes here";   
+            listItem.textContent = "Flight to " + result.data[i].arrival.airport + " :  " + result.data[i].flight.number;   
         }
 
         unorderList.appendChild(listItem);
@@ -149,8 +147,7 @@ buttonEl.addEventListener("click",function(event){
     event.preventDefault();
     var airportInput = document.getElementById("text-form-airport").value;
     var zipInput = document.getElementById("text-form-zip").value;
-    var result = getAPIData(airportInput);
-    displayResults(mockDataFlights, airportInput);
+    getFlightApi(airportInput);
     getLatAndLon(zipInput);
 
 
