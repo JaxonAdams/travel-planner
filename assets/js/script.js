@@ -67,12 +67,17 @@ function getAPIData(userInput) {
     
 }
 
-function displayResults(result) {
+function displayResults(result, airportInput) {
 
     for(let i = 0; i < result.data.length; i++){
         var listItem = document.createElement("li");
         listItem.classList.add("flight-info");
-        listItem.textContent = "Flight to " + result.data[i].arrival.airport + " :  " + result.data[i].flight.number + "  :  " + "Flight time goes here";
+
+        if (!airportInput) {
+            listItem.textContent = "";
+        } else {
+            listItem.textContent = "Flight to " + result.data[i].arrival.airport + " :  " + result.data[i].flight.number + "  :  " + "Flight time goes here";   
+        }
 
         unorderList.appendChild(listItem);
     }
@@ -80,7 +85,7 @@ function displayResults(result) {
 
 function displayWeather(weatherData, input) {
     var weatherDataItem = document.createElement("h2");
-    weatherDataItem.classList.add("is-size-2");
+    weatherDataItem.classList.add("is-size-2", "has-text-centered");
 
     if (!input) {
         weatherDataItem.textContent = "";
@@ -96,7 +101,7 @@ buttonEl.addEventListener("click",function(event){
     var airportInput = document.getElementById("text-form-airport").value;
     var zipInput = document.getElementById("text-form-zip").value;
     var result = getAPIData(airportInput);
-    displayResults(mockDataFlights);
+    displayResults(mockDataFlights, airportInput);
     displayWeather(mockDataWeather, zipInput);
 
 
