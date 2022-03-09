@@ -1,0 +1,12 @@
+body {
+    background-color: black;
+}
+
+header {
+    flex-wrap: wrap;
+}
+
+.title .is-fluid {
+    padding-left: 0;
+    padding-right:0;
+}
