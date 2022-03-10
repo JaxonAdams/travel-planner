@@ -3,54 +3,9 @@ var buttonEl = document.getElementById("text-form-submit");
 var unorderList = document.getElementById("available-flights");
 var weatherDisplay = document.getElementById("weather-display");
 
-console.log(flightListEl);
-
-//nothing is typed in text box 
-
-// Mock Data for Fake API Calls
-var mockDataFlights = {
-    data: [
-        {
-            arrival: {
-                airport: 'Los Angeles',
-                icao: 'KLAX'
-            },
-            flight: {
-                number: '12345',
-            }
-        },
-        {
-            arrival: {
-                airport: 'Las Vegas',
-                icao: 'KLVS'
-            },
-            flight: {
-                number: '54321',
-            }
-        },
-        {
-            arrival: {
-                airport: 'Frankfurt',
-                icao: 'EDFH'
-            },
-            flight: {
-                number: '12543',
-            }
-        },
-        {
-            arrival: {
-                airport: 'London',
-                icao: 'EGGW'
-            },
-            flight: {
-                number: '54123',
-            }
-        },
-    ]
-};
-
+// Get flight info, then use results to display data
 function getFlightApi(icao) {
-    var flightUrl = "http://api.aviationstack.com/v1/flights?access_key=febff7df015fc5038aff1dca8627952a&dep_icao=" + icao + "&limit=10";
+    var flightUrl = "https://api.aviationstack.com/v1/flights?access_key=febff7df015fc5038aff1dca8627952a&dep_icao=" + icao + "&limit=10";
 
     if (icao) {
         fetch(flightUrl).then(function(response) {
@@ -65,6 +20,7 @@ function getFlightApi(icao) {
     }
 }
 
+// Display data using flight info
 function displayResults(result, airportInput) {
 
     for(let i = 0; i < result.data.length; i++){
@@ -81,8 +37,7 @@ function displayResults(result, airportInput) {
     }
 }
 
-// Get lat and lon
-
+// Get lat and lon for use in geo api and weather api, then send info to weather api function
 function getLatAndLon(location) {
     var geoUrl = "https://api.openweathermap.org/geo/1.0/zip?zip=" + location + "&appid=67c682bdeb2484022f2478f1c184a2f6";
 
@@ -114,6 +69,7 @@ function getLon(data) {
     return data.lon;
 }
 
+// Get weather info using lat and lon provided, then send info to display weather function
 function getWeatherApi(lat, lon, input) {
     console.log("Getting weather at lat: " + lat + " and lon: " + lon);
 
@@ -130,6 +86,7 @@ function getWeatherApi(lat, lon, input) {
     })
 }
 
+// Display weather from info provided by weather api
 function displayWeather(weatherData, input) {
     var weatherDataItem = document.createElement("h2");
     weatherDataItem.classList.add("is-size-2", "has-text-centered");
@@ -143,6 +100,7 @@ function displayWeather(weatherData, input) {
     weatherDisplay.appendChild(weatherDataItem);
 }
 
+// Form event listener
 buttonEl.addEventListener("click",function(event){
     event.preventDefault();
     var airportInput = document.getElementById("text-form-airport").value;
@@ -152,100 +110,3 @@ buttonEl.addEventListener("click",function(event){
 
 
 });
-
-
-
-// This is a file we are using to test our APIs.
-
-// Get the current day
-var startDate = moment().format("YYYY-MM-DD");
-
-// Set Airport
-var airportCode = "KSLC" // Code will be grabbed from form
-
-// Declare required URLs for fetch request
-var aviationStackUrl = "http://api.aviationstack.com/v1/flights?access_key=febff7df015fc5038aff1dca8627952a&dep_icao=" + airportCode + "&limit=10";
-
-// Lat and Lon provided by flight data requested
-var weatherUrl = "";
-
-// Fetch Requests
-var getFlights = function(url) {
-    fetch(url).then(
-        response => response.json()
-    ).then(
-        function(data) {
-            for(let i = 0; i < data.data.length; i++) {
-                console.log(data.data[i].arrival.airport);
-                console.log(data.data[i].flight.number);
-            }
-        }
-    );
-}
-
-// Mock api call for testing
-var getFlightsFake = function(data) {
-
-    var displayData = data => {
-        for(let i = 0; i < data.data.length; i++) {
-            console.log(data.data[i].arrival.airport);
-            console.log(data.data[i].flight.number);
-        }
-    }
-
-    return displayData(data);
-}
-
-// Note: Fix to use gathered zip code
-var getArrivalLatAndLon = function(data, zip) {
-    var arrivalAirport = data.arrival.icao;
-
-    airportUrl = "http://api.aviationstack.com/v1/airports?access_key=febff7df015fc5038aff1dca8627952a"
-
-    fetch(airportUrl).then(
-        response => response.json()
-    ).then(
-        function(data) {
-            var latAndLon = {
-                lat: data.data[0].latitude,
-                lon: data.data[0].longitude
-            };
-
-            console.log(latAndLon);
-
-            return latAndLon;
-        }
-    )
-
-}
-
-// Mock api call for testing
-var getArrivalLatAndLonFake = function(data, zip) {
-
-    var getLatAndLonFake = data => {
-        var latAndLonFake = {
-            lat: data.lat,
-            lon: data.lon
-        }
-
-        return latAndLonFake;
-    }
-
-    console.log(getLatAndLonFake(data));
-
-    return getLatAndLonFake(data);
-}
-
-var getWeatherFake = function(data) {
-    console.log(data.main.temp + '° F.');
-
-    return data.main.temp;
-}
-
-
-
-
-
-
-
-// getArrivalLatAndLon();
